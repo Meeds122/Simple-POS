@@ -29,37 +29,46 @@ class Keypad(tk.Frame):
         bspecial = tk.Button(self, text="Special", command=self.special, height = 10, width = 20).grid(row=3, column=0)
         badmin = tk.Button(self, text="Admin", command=self.admin, height = 10, width = 20).grid(row=3, column=1)
         bfinalize = tk.Button(self, text="Finalize", command=self.finalize, height = 10, width = 20).grid(row=3, column=2)
-        
     def button1(self):
-        self.app.update("1")
+        self.app.update("1\n")
         return
     def button2(self):
-        self.app.update("2")
+        self.app.update("2\n")
         return
     def button3(self):
-        self.app.update("3")
+        self.app.update("3\n")
         return
     def button4(self):
-        self.app.update("4")
+        self.app.update("4\n")
         return
     def button5(self):
-        self.app.update("5")
+        self.app.update("5\n")
         return
     def button6(self):
-        self.app.update("6")
+        self.app.update("6\n")
         return
     def button7(self):
+        self.app.update("7\n")
         return
     def button8(self):
+        self.app.update("8\n")
         return
     def button9(self):
+        self.app.update("9\n")
         return
     def special(self):
+        self.app.update("SPECIAL\n")
+        self.sinputWindow = tk.Toplevel(self.master)
+        self.specialInput = Special(self.sinputWindow)
         return
     def admin(self):
+        self.app.update("ADMIN\n")
         return
     def finalize(self):
+        self.app.update("FIN\n")
+        self.app.clear()
         return
+
 #slave window to display text
 class Display():
     def __init__(self, master):
@@ -72,6 +81,22 @@ class Display():
         self.disp.configure(state='normal')
         self.disp.insert('end', stuff)
         self.disp.configure(state='disabled')
+    def clear(self):
+        #have to figure out how to clear box
+        return
+
+#special input
+class Special():
+    def __init__(self, master):
+        self.master = master
+        self.frame = tk.Frame(self.master)
+        self.entry = tk.Entry(self.master, text="Amount: ").grid(row=0, column=0)
+        self.taxed = tk.Button(self.master, text="Taxed", command=self.retTaxed, height = 2, width = 10).grid(row=0, column=1)
+        self.untaxed = tk.Button(self.master, text="Non-Taxed", command=self.retNonTaxed, height=2, width=10).grid(row=0, column=2)
+    def retTaxed(self):
+        return
+    def retNonTaxed(self):
+        return
 
 #
 def main():
