@@ -4,6 +4,8 @@ import tkinter as tk # python 3 import
 
 #gui
 from gui import *
+#cart functions
+from cart import *
 
 """
 TODO:
