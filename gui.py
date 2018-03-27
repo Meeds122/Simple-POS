@@ -2,47 +2,77 @@
 
 #includes
 import tkinter as tk # python 3 import
-#cart classes
+import configparser as cp
+#import cart functions
 from cart import *
+
+#globals to be filled in by config file
+
+configFile = "config.ini" # Config file location
+
+buttons = [] # structure [[('name', 'item 1'), ('price', '1.0'), ('istaxed', 'true')],...]
+taxRate = 0.0
+recieptPrinter = "blah"
+paperPrinter = "blah"
+
+#Config Functions
+def init_config(configFile):
+    global buttons
+    global taxRate
+    global recieptPrinter
+    global paperPrinter
+    parser = cp.ConfigParser()
+    parser.read(configFile)
+    #fill buttons list
+    for section in parser.sections():
+        if "Button" in section:
+            buttons.append(parser.items(section))
+        elif "Tax" in section:
+            for name, value in parser.items(section):
+                taxRate = value
+    return
 
 class Keypad(tk.Frame):
     def __init__(self, master=None, **kwargs):
         tk.Frame.__init__(self, master, **kwargs)
-
+        
         #start text display
         self.newWindow = tk.Toplevel(self.master)
         self.app = Display(self.newWindow)
 
-        #temporary
-        self.button_labels = [1,2,3,4,5,6,7,8,9]
+        #get config
+        global buttons
         
+        init_config(configFile)
+        
+        self.button = buttons
         
         self.items = list()
         #buttons
-        b1 = tk.Button(self, text=str(self.button_labels[0]), command=self.button1, height = 10, width = 20).grid(row=0, column=0)
-        b2 = tk.Button(self, text=str(self.button_labels[1]), command=self.button2, height = 10, width = 20).grid(row=0, column=1)
-        b3 = tk.Button(self, text=str(self.button_labels[2]), command=self.button3, height = 10, width = 20).grid(row=0, column=2)
-        b4 = tk.Button(self, text=str(self.button_labels[3]), command=self.button4, height = 10, width = 20).grid(row=1, column=0)
-        b5 = tk.Button(self, text=str(self.button_labels[4]), command=self.button5, height = 10, width = 20).grid(row=1, column=1)
-        b6 = tk.Button(self, text=str(self.button_labels[5]), command=self.button6, height = 10, width = 20).grid(row=1, column=2)
-        b7 = tk.Button(self, text=str(self.button_labels[6]), command=self.button7, height = 10, width = 20).grid(row=2, column=0)
-        b8 = tk.Button(self, text=str(self.button_labels[7]), command=self.button8, height = 10, width = 20).grid(row=2, column=1)
-        b9 = tk.Button(self, text=str(self.button_labels[8]), command=self.button9, height = 10, width = 20).grid(row=2, column=2)
+        b1 = tk.Button(self, text=str(buttons[0][0][1]), command=self.button1, height = 10, width = 20).grid(row=0, column=0)
+        b2 = tk.Button(self, text=str(buttons[1][0][1]), command=self.button2, height = 10, width = 20).grid(row=0, column=1)
+        b3 = tk.Button(self, text=str(buttons[2][0][1]), command=self.button3, height = 10, width = 20).grid(row=0, column=2)
+        b4 = tk.Button(self, text=str(buttons[3][0][1]), command=self.button4, height = 10, width = 20).grid(row=1, column=0)
+        b5 = tk.Button(self, text=str(buttons[4][0][1]), command=self.button5, height = 10, width = 20).grid(row=1, column=1)
+        b6 = tk.Button(self, text=str(buttons[5][0][1]), command=self.button6, height = 10, width = 20).grid(row=1, column=2)
+        b7 = tk.Button(self, text=str(buttons[6][0][1]), command=self.button7, height = 10, width = 20).grid(row=2, column=0)
+        b8 = tk.Button(self, text=str(buttons[7][0][1]), command=self.button8, height = 10, width = 20).grid(row=2, column=1)
+        b9 = tk.Button(self, text=str(buttons[8][0][1]), command=self.button9, height = 10, width = 20).grid(row=2, column=2)
         #special functions
         bspecial = tk.Button(self, text="Special", command=self.special, height = 10, width = 20).grid(row=3, column=0)
         badmin = tk.Button(self, text="Admin", command=self.admin, height = 10, width = 20).grid(row=3, column=1)
         bfinalize = tk.Button(self, text="Finalize", command=self.finalize, height = 10, width = 20).grid(row=3, column=2)
     def button1(self):
-        self.app.update("1\n")
+        #USE ITEM CLASS HERE AND HAVE IT GENERATE THE TEXT FOR Display.update()
         return
     def button2(self):
-        self.app.update("2\n")
+        self.app.update(self.button[1][0][1])
         return
     def button3(self):
-        self.app.update("3\n")
+        self.app.update(self.button[2][0][1])
         return
     def button4(self):
-        self.app.update("4\n")
+        self.app.update(self.button[3][0][1])
         return
     def button5(self):
         self.app.update("5\n")

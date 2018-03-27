@@ -1,6 +1,7 @@
-#includes
-import tkinter as tk # python 3 import
 
+
+#includes
+import configparser as cp
 
 #gui
 from gui import *
@@ -13,7 +14,6 @@ TODO:
 2. Figure out Display.clear()
 3. Build a Item() class
 4. Finish GUI functions
-
 """
 
 #start GUI main loop
