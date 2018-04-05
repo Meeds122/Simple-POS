@@ -46,8 +46,8 @@ class Keypad(tk.Frame):
         init_config(configFile)
         
         self.button = buttons
-        
-        self.items = list()
+
+        self.cart = Cart()
         #buttons
         b1 = tk.Button(self, text=str(buttons[0][0][1]), command=self.button1, height = 10, width = 20).grid(row=0, column=0)
         b2 = tk.Button(self, text=str(buttons[1][0][1]), command=self.button2, height = 10, width = 20).grid(row=0, column=1)
@@ -63,31 +63,49 @@ class Keypad(tk.Frame):
         badmin = tk.Button(self, text="Admin", command=self.admin, height = 10, width = 20).grid(row=3, column=1)
         bfinalize = tk.Button(self, text="Finalize", command=self.finalize, height = 10, width = 20).grid(row=3, column=2)
     def button1(self):
-        #USE ITEM CLASS HERE AND HAVE IT GENERATE THE TEXT FOR Display.update()
+        item = Item(self.button[0][0][1], self.button[0][1][1], self.button[0][2][1])
+        self.app.update(item.print())
+        self.cart.add(item)
         return
     def button2(self):
-        self.app.update(self.button[1][0][1])
+        item = Item(self.button[1][0][1], self.button[1][1][1], self.button[1][2][1])
+        self.app.update(item.print())
+        self.cart.add(item)
         return
     def button3(self):
-        self.app.update(self.button[2][0][1])
+        item = Item(self.button[2][0][1], self.button[2][1][1], self.button[2][2][1])
+        self.app.update(item.print())
+        self.cart.add(item)
         return
     def button4(self):
-        self.app.update(self.button[3][0][1])
+        item = Item(self.button[3][0][1], self.button[3][1][1], self.button[3][2][1])
+        self.app.update(item.print())
+        self.cart.add(item)
         return
     def button5(self):
-        self.app.update("5\n")
+        item = Item(self.button[4][0][1], self.button[4][1][1], self.button[4][2][1])
+        self.app.update(item.print())
+        self.cart.add(item)
         return
     def button6(self):
-        self.app.update("6\n")
+        item = Item(self.button[5][0][1], self.button[5][1][1], self.button[5][2][1])
+        self.app.update(item.print())
+        self.cart.add(item)
         return
     def button7(self):
-        self.app.update("7\n")
+        item = Item(self.button[6][0][1], self.button[6][1][1], self.button[6][2][1])
+        self.app.update(item.print())
+        self.cart.add(item)
         return
     def button8(self):
-        self.app.update("8\n")
+        item = Item(self.button[7][0][1], self.button[7][1][1], self.button[7][2][1])
+        self.app.update(item.print())
+        self.cart.add(item)
         return
     def button9(self):
-        self.app.update("9\n")
+        item = Item(self.button[8][0][1], self.button[8][1][1], self.button[8][2][1])
+        self.app.update(item.print())
+        self.cart.add(item)
         return
     def special(self):
         self.app.update("SPECIAL\n")
@@ -115,7 +133,9 @@ class Display():
         self.disp.insert('end', stuff)
         self.disp.configure(state='disabled')
     def clear(self):
-        #have to figure out how to clear box
+        self.disp.configure(state='normal')
+        self.disp.delete('1.0', tk.END)
+        self.disp.configure(state='disabled')
         return
 
 #special input
@@ -127,6 +147,8 @@ class Special():
         self.taxed = tk.Button(self.master, text="Taxed", command=self.retTaxed, height = 2, width = 10).grid(row=0, column=1)
         self.untaxed = tk.Button(self.master, text="Non-Taxed", command=self.retNonTaxed, height=2, width=10).grid(row=0, column=2)
     def retTaxed(self):
+        self.master.destroy() # Seems to work for the objective. More testing needed
         return
     def retNonTaxed(self):
+        self.master.destroy() # Seems to work for the objective. More testing needed
         return

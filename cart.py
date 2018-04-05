@@ -11,6 +11,8 @@ class Item(object):
         else:
             self.taxed = False
         return
+    def print(self):
+        return str("\n" + str(self.name) + "    $" + str(self.price) + "\n")
 
 class Cart(object):
     def __init__(self):
@@ -18,6 +20,7 @@ class Cart(object):
         self.subtotal = 0
         self.tax = 0
         self.total = 0
+        is_fin = False
         return
     def add(self, item):
         self.cart.append(item)
