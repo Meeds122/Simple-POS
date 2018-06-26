@@ -12,7 +12,7 @@ class Item(object):
             self.taxed = False
         return
     def print(self):
-        return str("\n" + str(self.name) + "    $" + str(self.price) + "\n")
+        return str("$" + str(self.price) + "    " + self.name + "\n")
 
 class Cart(object):
     def __init__(self):
