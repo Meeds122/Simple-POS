@@ -52,12 +52,24 @@ class Cart(object):
                 self.tax += item.price * self.taxRate
         self.total = self.subtotal + self.tax
         
+        # cosmetic changes for str return
         self.total = float(format(self.total, '.2f'))
         total = str(self.total)
         if len(total) - (total.find('.') + 1) == 1:
             total = total + '0'
+        
+        self.tax = float(format(self.tax, '.2f'))
+        tax = str(self.tax)
+        if len(tax) - (tax.find('.') + 1) == 1:
+            tax = tax + '0'
+        
+        self.subtotal = float(format(self.subtotal, '.2f'))
+        subtotal = str(self.subtotal)
+        if len(subtotal) - (subtotal.find('.') + 1) == 1:
+            subtotal = subtotal + '0'
+        
         # return is in format (subtotal, tax, total)
-        return (float(format(self.subtotal, '.2f')), float(format(self.tax, '.2f')), total)
+        return (subtotal, tax, total)
 
 #tests
 

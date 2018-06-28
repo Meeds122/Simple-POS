@@ -7,9 +7,9 @@ import configparser as cp
 from cart import *
 
 #TODO:
-#    implement current total box at bottom of app
-#        a. Refresh when items are added
-#        b. includes tax
+#    Finish special input
+#    close app if Keypad OR Display closes
+#    Create Admin class and hook into Keypad.admin()
 
 
 configFile = "config.ini" # Config file location
