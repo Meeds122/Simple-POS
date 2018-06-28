@@ -122,6 +122,7 @@ class Keypad(tk.Frame):
         self.update_total()
         return
     def special(self):
+        self.special_input = None
         self.app.update("SPECIAL\n")
         self.sinputWindow = tk.Toplevel(self.master)
         self.specialInput = Special(self.sinputWindow)
@@ -134,6 +135,7 @@ class Keypad(tk.Frame):
         self.app.clear()
         self.cart.clear()
         self.update_total()
+        print(self.special_input)
         return
     def update_total(self):
         status = self.cart.maketotal()
@@ -170,12 +172,14 @@ class Special():
     def __init__(self, master):
         self.master = master
         self.frame = tk.Frame(self.master)
-        self.entry = tk.Entry(self.master, text="Amount: ").grid(row=0, column=0)
+        self.entry = tk.Entry(self.master, text="Amount: ")
+        self.entry.grid(row=0, column=0)
         self.taxed = tk.Button(self.master, text="Taxed", command=self.retTaxed, height = 2, width = 10).grid(row=0, column=1)
         self.untaxed = tk.Button(self.master, text="Non-Taxed", command=self.retNonTaxed, height=2, width=10).grid(row=0, column=2)
     def retTaxed(self):
-        self.master.destroy() # Seems to work for the objective. More testing needed
-        return
+        self.kill((self.entry.get(), 'true'))
     def retNonTaxed(self):
+        self.kill((self.entry.get(), 'false'))
+    def kill(self, ret):
+        # I need to pass the values from entry to Keypad() somehow
         self.master.destroy() # Seems to work for the objective. More testing needed
-        return

@@ -21,6 +21,8 @@ def main():
     root = tk.Tk()
     keypad = Keypad(root)
     keypad.pack()
+    if not keypad.app:
+        return
     root.mainloop()
 
 if __name__ == '__main__':
