@@ -6,7 +6,11 @@ import configparser as cp
 #import cart functions
 from cart import *
 
-#globals to be filled in by config file
+#TODO:
+#    implement current total box at bottom of app
+#        a. Refresh when items are added
+#        b. includes tax
+
 
 configFile = "config.ini" # Config file location
 
@@ -15,7 +19,7 @@ taxRate = 0.0
 recieptPrinter = "blah"
 paperPrinter = "blah"
 
-#Config Functions
+
 def init_config(configFile):
     global buttons
     global taxRate
