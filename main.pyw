@@ -1,4 +1,4 @@
-
+#!/usr/bin/python3
 
 #includes
 import configparser as cp
