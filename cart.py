@@ -22,11 +22,12 @@ class Item(object):
         return fmtprice
 
 class Cart(object):
-    def __init__(self):
+    def __init__(self, taxRate):
+        self.taxRate = taxRate
         self.cart = list()
-        self.subtotal = 0
-        self.tax = 0
-        self.total = 0
+        self.subtotal = 0.0
+        self.tax = 0.0
+        self.total = 0.0
         is_fin = False
         return
     def add(self, item):
@@ -38,6 +39,9 @@ class Cart(object):
                 self.card.remove(i)
                 break
         return
+    def clear(self):
+        self.__init__(self.taxRate)
+        return
     def maketotal(self):
         self.subtotal = 0
         self.tax = 0
@@ -45,9 +49,15 @@ class Cart(object):
         for item in self.cart:
             self.subtotal += item.price
             if item.taxed:
-                self.tax += item.price * taxrate
-        self.tax = float(format(self.tax, '.2f'))
+                self.tax += item.price * self.taxRate
         self.total = self.subtotal + self.tax
+        
+        self.total = float(format(self.total, '.2f'))
+        total = str(self.total)
+        if len(total) - (total.find('.') + 1) == 1:
+            total = total + '0'
+        # return is in format (subtotal, tax, total)
+        return (float(format(self.subtotal, '.2f')), float(format(self.tax, '.2f')), total)
 
 #tests
 
@@ -58,5 +68,5 @@ if __name__=='__main__':
     c = Cart()
     c.add(one)
     c.add(two)
-    c.maketotal()
-    print(c.subtotal, c.tax, c.total)
+    ret = c.maketotal()
+    print(ret[0], ret[1], ret[2])

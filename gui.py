@@ -46,12 +46,13 @@ class Keypad(tk.Frame):
 
         #get config
         global buttons
+        global taxRate
         
         init_config(configFile)
         
         self.button = buttons
-
-        self.cart = Cart()
+        self.taxRate = taxRate
+        self.cart = Cart(float(self.taxRate))
         #buttons
         b1 = tk.Button(self, text=str(buttons[0][0][1]), command=self.button1, height = 10, width = 20).grid(row=0, column=0)
         b2 = tk.Button(self, text=str(buttons[1][0][1]), command=self.button2, height = 10, width = 20).grid(row=0, column=1)
@@ -70,46 +71,55 @@ class Keypad(tk.Frame):
         item = Item(self.button[0][0][1], self.button[0][1][1], self.button[0][2][1])
         self.app.update(item.print())
         self.cart.add(item)
+        self.update_total()
         return
     def button2(self):
         item = Item(self.button[1][0][1], self.button[1][1][1], self.button[1][2][1])
         self.app.update(item.print())
         self.cart.add(item)
+        self.update_total()
         return
     def button3(self):
         item = Item(self.button[2][0][1], self.button[2][1][1], self.button[2][2][1])
         self.app.update(item.print())
         self.cart.add(item)
+        self.update_total()
         return
     def button4(self):
         item = Item(self.button[3][0][1], self.button[3][1][1], self.button[3][2][1])
         self.app.update(item.print())
         self.cart.add(item)
+        self.update_total()
         return
     def button5(self):
         item = Item(self.button[4][0][1], self.button[4][1][1], self.button[4][2][1])
         self.app.update(item.print())
         self.cart.add(item)
+        self.update_total()
         return
     def button6(self):
         item = Item(self.button[5][0][1], self.button[5][1][1], self.button[5][2][1])
         self.app.update(item.print())
         self.cart.add(item)
+        self.update_total()
         return
     def button7(self):
         item = Item(self.button[6][0][1], self.button[6][1][1], self.button[6][2][1])
         self.app.update(item.print())
         self.cart.add(item)
+        self.update_total()
         return
     def button8(self):
         item = Item(self.button[7][0][1], self.button[7][1][1], self.button[7][2][1])
         self.app.update(item.print())
         self.cart.add(item)
+        self.update_total()
         return
     def button9(self):
         item = Item(self.button[8][0][1], self.button[8][1][1], self.button[8][2][1])
         self.app.update(item.print())
         self.cart.add(item)
+        self.update_total()
         return
     def special(self):
         self.app.update("SPECIAL\n")
@@ -122,6 +132,11 @@ class Keypad(tk.Frame):
     def finalize(self):
         self.app.update("FIN\n")
         self.app.clear()
+        self.cart.clear()
+        self.update_total()
+        return
+    def update_total(self):
+        self.app.update_total("Total: $" + str(self.cart.maketotal()[2]))
         return
 
 #slave window to display text
@@ -132,6 +147,8 @@ class Display():
         self.frame.pack(side=tk.RIGHT)
         self.disp = tk.Text(self.frame, state='disabled', width=60, height=40)
         self.disp.pack()
+        self.dispTotal = tk.Text(self.frame, state='disabled', width=60, height=1)
+        self.dispTotal.pack()
     def update(self, stuff):
         self.disp.configure(state='normal')
         self.disp.insert('end', stuff)
@@ -141,6 +158,11 @@ class Display():
         self.disp.delete('1.0', tk.END)
         self.disp.configure(state='disabled')
         return
+    def update_total(self, newTotal):
+        self.dispTotal.configure(state='normal')
+        self.dispTotal.delete('1.0', tk.END)
+        self.dispTotal.insert('end', newTotal)
+        self.dispTotal.configure(state='disabled')
 
 #special input
 class Special():
