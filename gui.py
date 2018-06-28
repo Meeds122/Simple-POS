@@ -136,7 +136,8 @@ class Keypad(tk.Frame):
         self.update_total()
         return
     def update_total(self):
-        self.app.update_total("Total: $" + str(self.cart.maketotal()[2]))
+        status = self.cart.maketotal()
+        self.app.update_total("Subtotal: $" + str(status[0]) + "    Tax: $" + str(status[1]) + "    Total: $" + str(status[2]))
         return
 
 #slave window to display text
