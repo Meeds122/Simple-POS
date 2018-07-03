@@ -122,20 +122,18 @@ class Keypad(tk.Frame):
         self.update_total()
         return
     def special(self):
-        self.special_input = None
-        self.app.update("SPECIAL\n")
         self.sinputWindow = tk.Toplevel(self.master)
         self.specialInput = Special(self.sinputWindow)
         return
     def admin(self):
-        self.app.update("ADMIN\n")
+        self.adminWindow = tk.Toplevel(self.master)
+        self.admin = Admin(self.adminWindow)
         return
     def finalize(self):
         self.app.update("FIN\n")
         self.app.clear()
         self.cart.clear()
         self.update_total()
-        print(self.special_input)
         return
     def update_total(self):
         status = self.cart.maketotal()
@@ -183,3 +181,24 @@ class Special():
     def kill(self, ret):
         # I need to pass the values from entry to Keypad() somehow
         self.master.destroy() # Seems to work for the objective. More testing needed
+
+#admin section
+class Admin():
+    def __init__(self, master):
+        self.master = master
+        self.frame = tk.Frame(self.master)
+        #define buttons to do admin things.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
