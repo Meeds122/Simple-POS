@@ -49,6 +49,8 @@ class Keypad(tk.Frame):
         global taxRate
         
         init_config(configFile)
+
+        self.sinputItem = None
         
         self.button = buttons
         self.taxRate = taxRate
@@ -123,7 +125,7 @@ class Keypad(tk.Frame):
         return
     def special(self):
         self.sinputWindow = tk.Toplevel(self.master)
-        self.specialInput = Special(self.sinputWindow)
+        self.specialInput = Special(self.sinputWindow, self)
         return
     def admin(self):
         self.adminWindow = tk.Toplevel(self.master)
@@ -135,7 +137,13 @@ class Keypad(tk.Frame):
         self.cart.clear()
         self.update_total()
         return
+    def check_special_input(self):
+        if(self.sinputItem):
+            self.cart.add(self.sinputItem)
+            self.app.update(self.sinputItem.print())
+            self.sinputItem = None
     def update_total(self):
+        self.check_special_input()
         status = self.cart.maketotal()
         self.app.update_total("Subtotal: $" + str(status[0]) + "    Tax: $" + str(status[1]) + "    Total: $" + str(status[2]))
         return
@@ -167,8 +175,9 @@ class Display():
 
 #special input
 class Special():
-    def __init__(self, master):
+    def __init__(self, master, caller):
         self.master = master
+        self.caller = caller
         self.frame = tk.Frame(self.master)
         self.entry = tk.Entry(self.master, text="Amount: ")
         self.entry.grid(row=0, column=0)
@@ -179,7 +188,11 @@ class Special():
     def retNonTaxed(self):
         self.kill((self.entry.get(), 'false'))
     def kill(self, ret):
-        # I need to pass the values from entry to Keypad() somehow
+        # I need keypad to automatically update when it recieves this input
+        if(ret[1] == 'true'):
+            self.caller.sinputItem = Item("Special Input - Taxed", ret[0], ret[1])
+        if(ret[1] == 'true'):
+            self.caller.sinputItem = Item("Special Input - NonTaxed", ret[0], ret[1])
         self.master.destroy() # Seems to work for the objective. More testing needed
 
 #admin section
