@@ -17,6 +17,7 @@ def main():
         root.update_idletasks()
         root.update()
         #should be able to insert keypad.check_special_input() here
+        #root.update* are nonblocking unlike tk.mainloop()
         keypad.check_special_input()
 
 if __name__ == '__main__':
