@@ -142,8 +142,8 @@ class Keypad(tk.Frame):
             self.cart.add(self.sinputItem)
             self.app.update(self.sinputItem.print())
             self.sinputItem = None
+            self.update_total()
     def update_total(self):
-        self.check_special_input()
         status = self.cart.maketotal()
         self.app.update_total("Subtotal: $" + str(status[0]) + "    Tax: $" + str(status[1]) + "    Total: $" + str(status[2]))
         return
@@ -191,7 +191,7 @@ class Special():
         # I need keypad to automatically update when it recieves this input
         if(ret[1] == 'true'):
             self.caller.sinputItem = Item("Special Input - Taxed", ret[0], ret[1])
-        if(ret[1] == 'true'):
+        if(ret[1] == 'false'):
             self.caller.sinputItem = Item("Special Input - NonTaxed", ret[0], ret[1])
         self.master.destroy() # Seems to work for the objective. More testing needed
 
