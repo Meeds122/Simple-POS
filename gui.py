@@ -1,4 +1,4 @@
-#gui classes
+#Simple-POS/gui.py
 
 #includes
 import tkinter as tk # python 3 import
@@ -7,7 +7,8 @@ import configparser as cp
 from cart import *
 #import records functions
 import records as records
-
+#import printing functions
+import printing as printing
 
 #TODO:
 #    finish admin section
@@ -231,6 +232,7 @@ class Admin():
     def history(self):
         return
     def saveQuit(self):
+        self.caller.master.destroy()
         return
     def kill(self):
         self.master.destroy()

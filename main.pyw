@@ -1,12 +1,8 @@
 #!/usr/bin/python3
-
-#includes
-import configparser as cp
+#Simple-POS/main.pyw
 
 #gui
 from gui import *
-#cart functions
-from cart import *
 
 #start GUI main loop
 def main():
