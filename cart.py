@@ -10,6 +10,7 @@ class Item(object):
             self.taxed = False
         return
     def print(self):
+        "usage: returns a formatted price string for printing"
         price = str(self.price)
         #determine if trailing zero is needed
         if len(price) - (price.find('.') + 1) == 1:
