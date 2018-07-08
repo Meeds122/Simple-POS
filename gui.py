@@ -11,6 +11,7 @@ from cart import *
 #    close app if Keypad OR Display closes
 #    Cart.cartID should be implemented and printed on reciept. How to do unique ID's?
 #    refractor globals and init_config into Keypad somehow
+#    Admin.help()? Help menu in admin?
 
 
 configFile = "config.ini" # Config file location
@@ -207,7 +208,7 @@ class Admin():
 
         #define buttons to do admin things.
         tk.Button(self.master, text="Clear Cart", command=self.clearCart, height=2, width=10).grid(row=0, column=0)
-        tk.Button(self.master, text="Refund Item", command=self.refundItem, height=2, width=10).grid(row=0, column=1)
+        tk.Button(self.master, text="Refund\n(CartID Req.)", command=self.refundCart, height=2, width=10).grid(row=0, column=1)
         tk.Button(self.master, text="Print Dayfile", command=self.printDay, height=2, width=10).grid(row=0, column=2)
 
         tk.Button(self.master, text="View History", command=self.history, height=2, width=10).grid(row=1, column=0)
@@ -220,7 +221,7 @@ class Admin():
         self.caller.update_total()
         self.kill()
         return
-    def refundItem(self):
+    def refundCart(self):
         return
     def printDay(self):
         return
@@ -230,8 +231,6 @@ class Admin():
         return
     def kill(self):
         self.master.destroy()
-
-
 
 
 
