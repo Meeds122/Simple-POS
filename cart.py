@@ -30,6 +30,7 @@ class Cart(object):
         self.tax = 0.0
         self.total = 0.0
         self.transID = None # transaction ID
+        self.payment_method = None # Payment method
         return
     def add(self, item):
         "usage: adds an item to the 'cart'"
