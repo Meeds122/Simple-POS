@@ -28,7 +28,7 @@ class Cart(object):
         self.subtotal = 0.0
         self.tax = 0.0
         self.total = 0.0
-        is_fin = False
+        self.transID = None # transaction ID
         return
     def add(self, item):
         self.cart.append(item)

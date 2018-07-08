@@ -9,10 +9,10 @@ from cart import *
 #TODO:
 #    finish admin section
 #    close app if Keypad OR Display closes
-#    Cart.cartID should be implemented and printed on reciept. How to do unique ID's?
+#    Cart.cartID should be implemented and printed on reciept. How to do unique ID's? Perhaps a cartID based on current time to be set at Keypad.finalize?
 #    refractor globals and init_config into Keypad somehow
 #    Admin.help()? Help menu in admin?
-
+#    NOTE: CSV file is for daily records retention. Actual cart objects to be stored elsewhere
 
 configFile = "config.ini" # Config file location
 
