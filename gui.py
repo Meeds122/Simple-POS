@@ -215,6 +215,10 @@ class Admin():
         tk.Button(self.master, text="Exit Menu", command=self.kill, height=2, width=10).grid(row=1, column=2)
 
     def clearCart(self):
+        self.caller.cart.clear()
+        self.caller.app.clear()
+        self.caller.update_total()
+        self.kill()
         return
     def refundItem(self):
         return
