@@ -101,5 +101,5 @@ if __name__=='__main__':
     ret = c.maketotal()
     print(ret[0], ret[1], ret[2])
     #testing CSV function
-    records.appendCSV('test2.csv', c)
+    records.saveRecord(c)
 

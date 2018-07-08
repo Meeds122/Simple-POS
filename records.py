@@ -11,9 +11,20 @@ import csv
 import datetime
 
 
+def generateTransID():
+    tid = 1807080451443
+    # logic to do ID currently I'm thinking that either time since epoc or yymmddhhmmss[ms] == 1807080450443
+    return tid
 
+def generateFileName():
+    fname = "july-8-2018.csv"
+    # logic to generate daily file name
+    # most important question, mmddyy ddmmyy or yymmdd?
+    return fname
 
 def saveRecord(cart):
+    cart.transID = generateTransID()
+    appendCSV(generateFileName(), cart)
     return
 
 
@@ -26,7 +37,7 @@ usage:
 def createCSV(file_name):
     with open(str(file_name), 'w', newline='') as csvFile:
         writer = csv.writer(csvFile)
-        writer.writerow(["Trans ID", "Taxable", "Nontaxable", "Subtotal", "Tax", "Total"])
+        writer.writerow(["Trans ID", "NonTaxable", "Taxable", "Subtotal", "Tax", "Total"])
     return
 
 """

@@ -12,10 +12,10 @@ import records as records
 #TODO:
 #    finish admin section
 #    close app if Keypad OR Display closes
-#    Cart.cartID should be implemented and printed on reciept. How to do unique ID's? Perhaps a cartID based on current time to be set at Keypad.finalize?
+#    Cart.transID should be implemented and printed on reciept. Cart.transID needs to be set in records.py using current time.  
 #    refractor globals and init_config into Keypad somehow
 #    Admin.help()? Help menu in admin?
-#    NOTE: CSV file is for daily records retention. Actual cart objects to be stored elsewhere
+#    NOTE: CSV file is for daily records retention. Actual cart objects to be stored elsewhere prolly xml
 
 configFile = "config.ini" # Config file location
 
@@ -137,7 +137,7 @@ class Keypad(tk.Frame):
         self.admin = Admin(self.adminWindow, self)
         return
     def finalize(self):
-        self.app.update("FIN\n")
+        records.saveRecord(self.cart)
         self.app.clear()
         self.cart.clear()
         self.update_total()
@@ -211,7 +211,7 @@ class Admin():
 
         #define buttons to do admin things.
         tk.Button(self.master, text="Clear Cart", command=self.clearCart, height=2, width=10).grid(row=0, column=0)
-        tk.Button(self.master, text="Refund\n(CartID Req.)", command=self.refundCart, height=2, width=10).grid(row=0, column=1)
+        tk.Button(self.master, text="Refund\n(Trans ID Req.)", command=self.refundCart, height=2, width=10).grid(row=0, column=1)
         tk.Button(self.master, text="Print Dayfile", command=self.printDay, height=2, width=10).grid(row=0, column=2)
 
         tk.Button(self.master, text="View History", command=self.history, height=2, width=10).grid(row=1, column=0)
