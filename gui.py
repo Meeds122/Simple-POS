@@ -184,15 +184,17 @@ class Special():
         self.entry.grid(row=0, column=0)
         self.taxed = tk.Button(self.master, text="Taxed", command=self.retTaxed, height = 2, width = 10).grid(row=0, column=1)
         self.untaxed = tk.Button(self.master, text="Non-Taxed", command=self.retNonTaxed, height=2, width=10).grid(row=0, column=2)
+        self.quit = tk.Button(self.master, text="Exit Menu", command=self.kill, height=2, width=8).grid(row=0, column=3)
     def retTaxed(self):
         self.kill((self.entry.get(), 'true'))
     def retNonTaxed(self):
         self.kill((self.entry.get(), 'false'))
-    def kill(self, ret):
-        # I need keypad to automatically update when it recieves this input
-        if(ret[1] == 'true'):
+    def kill(self, ret=None):
+        if(ret == None):
+            self.master.destroy() # exit button kill needs to catch before trying to subscript it
+        elif(ret[1] == 'true'):
             self.caller.sinputItem = Item("Special Input - Taxed", ret[0], ret[1])
-        if(ret[1] == 'false'):
+        elif(ret[1] == 'false'):
             self.caller.sinputItem = Item("Special Input - NonTaxed", ret[0], ret[1])
         self.master.destroy() # Seems to work for the objective. More testing needed
 
@@ -202,16 +204,16 @@ class Admin():
         self.master = master
         self.frame = tk.Frame(self.master)
         self.caller = caller
+
         #define buttons to do admin things.
-        
-        #clear cart
         tk.Button(self.master, text="Clear Cart", command=self.clearCart, height=2, width=10).grid(row=0, column=0)
-        #refund_button
         tk.Button(self.master, text="Refund Item", command=self.refundItem, height=2, width=10).grid(row=0, column=1)
-        #print_day_button
-        #history_button
-        #save_quit_button
-        #exit_admin_button
+        tk.Button(self.master, text="Print Dayfile", command=self.printDay, height=2, width=10).grid(row=0, column=2)
+
+        tk.Button(self.master, text="View History", command=self.history, height=2, width=10).grid(row=1, column=0)
+        tk.Button(self.master, text="Save and Quit", command=self.saveQuit, height=2, width=10).grid(row=1, column=1)
+        tk.Button(self.master, text="Exit Menu", command=self.kill, height=2, width=10).grid(row=1, column=2)
+
     def clearCart(self):
         return
     def refundItem(self):
