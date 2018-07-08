@@ -5,6 +5,9 @@ import tkinter as tk # python 3 import
 import configparser as cp
 #import cart functions
 from cart import *
+#import records functions
+import records as records
+
 
 #TODO:
 #    finish admin section

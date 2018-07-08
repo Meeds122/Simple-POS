@@ -86,7 +86,7 @@ class Cart(object):
 #tests
 
 if __name__=='__main__':
-    import daily_records as dr
+    import records as records
     #testing CSV functions as well
     taxrate = 0.0775
     one = Item('one', 2, 'True')
@@ -101,5 +101,5 @@ if __name__=='__main__':
     ret = c.maketotal()
     print(ret[0], ret[1], ret[2])
     #testing CSV function
-    dr.appendCSV('test.csv', c)
+    records.appendCSV('test2.csv', c)
 
