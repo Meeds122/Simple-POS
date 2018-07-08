@@ -7,9 +7,10 @@ import configparser as cp
 from cart import *
 
 #TODO:
-#    Finish special input
+#    finish admin section
 #    close app if Keypad OR Display closes
-#    Create Admin class and hook into Keypad.admin()
+#    Cart.cartID should be implemented and printed on reciept. How to do unique ID's?
+#    refractor globals and init_config into Keypad somehow
 
 
 configFile = "config.ini" # Config file location
@@ -129,7 +130,7 @@ class Keypad(tk.Frame):
         return
     def admin(self):
         self.adminWindow = tk.Toplevel(self.master)
-        self.admin = Admin(self.adminWindow)
+        self.admin = Admin(self.adminWindow, self)
         return
     def finalize(self):
         self.app.update("FIN\n")
@@ -197,13 +198,32 @@ class Special():
 
 #admin section
 class Admin():
-    def __init__(self, master):
+    def __init__(self, master, caller):
         self.master = master
         self.frame = tk.Frame(self.master)
+        self.caller = caller
         #define buttons to do admin things.
-
-
-
+        
+        #clear cart
+        tk.Button(self.master, text="Clear Cart", command=self.clearCart, height=2, width=10).grid(row=0, column=0)
+        #refund_button
+        tk.Button(self.master, text="Refund Item", command=self.refundItem, height=2, width=10).grid(row=0, column=1)
+        #print_day_button
+        #history_button
+        #save_quit_button
+        #exit_admin_button
+    def clearCart(self):
+        return
+    def refundItem(self):
+        return
+    def printDay(self):
+        return
+    def history(self):
+        return
+    def saveQuit(self):
+        return
+    def kill(self):
+        self.master.destroy()
 
 
 

@@ -13,6 +13,7 @@ def main():
     root = tk.Tk()
     keypad = Keypad(root)
     keypad.pack()
+    # Replaces root.mainloop()
     while True:
         root.update_idletasks()
         root.update()
