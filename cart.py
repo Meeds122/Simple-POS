@@ -31,30 +31,36 @@ class Cart(object):
         self.transID = None # transaction ID
         return
     def add(self, item):
+        "usage: adds an item to the 'cart'"
         self.cart.append(item)
         return
     def remove(self, item):
+        "usage: removes an item from the cart given another item object with the same fields"
         for i in self.cart:
             if i.name == item.name and i.price == item.price and i.taxed == item.taxed:
                 self.card.remove(i)
                 break
         return
     def clear(self):
+        "usage: resets cart object to default"
         self.__init__(self.taxRate)
         return
     def getNontaxable(self):
+        "usage: returns the total of the non taxed items in the cart"
         nontax = 0
         for item in self.cart:
             if not item.taxed:
                 nontax += item.price
         return nontax
     def getTaxable(self):
+        "usage: returns the total of the taxed items in the cart"
         taxable = 0
         for item in self.cart:
             if item.taxed:
                 taxable += item.price
         return taxable
     def maketotal(self):
+        "usage: returns a tuple of the (subtotal, tax, total) of the items in the cart"
         self.subtotal = 0
         self.tax = 0
         self.total = 0

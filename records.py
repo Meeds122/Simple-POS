@@ -1,33 +1,41 @@
 #records retention
-"""
-My idea so far is to read file into memory when recording a transaction, edit file, overwrite with new file
-that way if there is an issue an uncorrupted copy of the day file is sitting on the harddrive for as long as possible
-
-Tests for these functions are bundled with the cart tests in cart.py
-"""
+#Tests for these functions are bundled with the cart tests in cart.py
 
 from os import path
 import csv
 import datetime
 
+"""
+saveRecord(cart)
+usage:
+    Needs to be called with a cart object from Simple-POS/cart.py
+    Does all required records retention information generation, saves the record
+    returns the transID it set for printing on the reciept
+"""
+def saveRecord(cart):
+    cart.transID = generateTransID()
+    appendCSV(generateFileName(), cart)
+    return cart.transID
 
+
+"""
+generateTransID():
+    the function returns a unique ID for the transaction based on yymmddhhmmss[ms] == 1807080450443
+"""
 def generateTransID():
     tid = 1807080451443
     # logic to do ID currently I'm thinking that either time since epoc or yymmddhhmmss[ms] == 1807080450443
     return tid
 
+"""
+generateFileName():
+    returns the filename for the CSV dayfile
+"""
 def generateFileName():
     fname = "july-8-2018.csv"
     # logic to generate daily file name
     # most important question, mmddyy ddmmyy or yymmdd?
     return fname
-
-def saveRecord(cart):
-    cart.transID = generateTransID()
-    appendCSV(generateFileName(), cart)
-    return
-
-
 
 """
 createCSV(file_name)
@@ -37,7 +45,7 @@ usage:
 def createCSV(file_name):
     with open(str(file_name), 'w', newline='') as csvFile:
         writer = csv.writer(csvFile)
-        writer.writerow(["Trans ID", "NonTaxable", "Taxable", "Subtotal", "Tax", "Total"])
+        writer.writerow(["Trans ID", "Non Taxable", "Taxable", "Subtotal", "Tax", "Total"])
     return
 
 """

@@ -137,7 +137,7 @@ class Keypad(tk.Frame):
         self.admin = Admin(self.adminWindow, self)
         return
     def finalize(self):
-        records.saveRecord(self.cart)
+        self.cart.transID = records.saveRecord(self.cart)
         self.app.clear()
         self.cart.clear()
         self.update_total()
