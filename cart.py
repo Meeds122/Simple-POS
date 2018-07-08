@@ -86,11 +86,20 @@ class Cart(object):
 #tests
 
 if __name__=='__main__':
+    import daily_records as dr
+    #testing CSV functions as well
     taxrate = 0.0775
     one = Item('one', 2, 'True')
     two = Item('two', 15, 'False')
-    c = Cart()
+    three = Item('three', 3, 'true')
+    four = Item('four', 5, 'false')
+    c = Cart(taxrate)
     c.add(one)
     c.add(two)
+    c.add(three)
+    c.add(four)
     ret = c.maketotal()
     print(ret[0], ret[1], ret[2])
+    #testing CSV function
+    dr.appendCSV('test.csv', c)
+

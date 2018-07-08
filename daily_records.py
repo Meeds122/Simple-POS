@@ -63,7 +63,7 @@ def appendCSV(file_name, cart):
     with open(str(file_name), 'w', newline='') as CSV_file:
         writer = csv.writer(CSV_file)
         for line in rows:
-            writer.writerow([line[0], line[1], line[2], line[3], line[4], line[5])
+            writer.writerow([line[0], line[1], line[2], line[3], line[4], line[5]])
     return True # success
 
 """
