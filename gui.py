@@ -131,6 +131,7 @@ class Keypad(tk.Frame):
         return
     def finalize(self):
         self.cart.transID = records.saveRecord(self.cart)
+        printing.printReceipt(self.cart)
         self.app.clear()
         self.cart.clear()
         self.update_total()
@@ -220,6 +221,7 @@ class Admin():
     def refundCart(self):
         return
     def printDay(self):
+        printing.printDayFile()
         return
     def history(self):
         return

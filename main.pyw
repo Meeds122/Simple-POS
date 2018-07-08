@@ -10,7 +10,7 @@
 #    Admin.help()? Help menu in admin?
 #    
 #    Finish records.py transID and file_name generators.
-#    Finish printing functions in printing.py. Wire them into the GUI
+#    Finish printing functions in printing.py.
 
 #NOTES:
 #    CSV file is for daily records retention. Actual cart objects to be stored elsewhere prolly xml
