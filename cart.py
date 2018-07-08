@@ -42,6 +42,18 @@ class Cart(object):
     def clear(self):
         self.__init__(self.taxRate)
         return
+    def getNontaxable(self):
+        nontax = 0
+        for item in self.cart:
+            if not item.taxed:
+                nontax += item.price
+        return nontax
+    def getTaxable(self):
+        taxable = 0
+        for item in self.cart:
+            if item.taxed:
+                taxable += item.price
+        return taxable
     def maketotal(self):
         self.subtotal = 0
         self.tax = 0
