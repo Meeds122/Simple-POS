@@ -10,14 +10,6 @@ import records as records
 #import printing functions
 import printing as printing
 
-#TODO:
-#    finish admin section
-#    close app if Keypad OR Display closes
-#    Cart.transID should be implemented and printed on reciept. Cart.transID needs to be set in records.py using current time.  
-#    refractor globals and init_config into Keypad somehow
-#    Admin.help()? Help menu in admin?
-#    NOTE: CSV file is for daily records retention. Actual cart objects to be stored elsewhere prolly xml
-
 configFile = "config.ini" # Config file location
 
 buttons = [] # structure [[('name', 'item 1'), ('price', '1.0'), ('istaxed', 'true')],...]
