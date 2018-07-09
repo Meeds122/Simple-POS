@@ -130,6 +130,10 @@ class Keypad(tk.Frame):
         self.admin = Admin(self.adminWindow, self)
         return
     def finalize(self):
+        # ignore if cart is empty
+        if len(self.cart.cart) < 1:
+            #if cart is empty, ignore request to finalize
+            return
         self.cart.transID = records.saveRecord(self.cart)
         printing.printReceipt(self.cart)
         self.app.clear()
