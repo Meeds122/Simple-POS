@@ -4,6 +4,7 @@
 from os import path
 import csv
 import datetime
+import time as time
 
 
 def saveRecord(cart):
@@ -23,10 +24,10 @@ def saveRecord(cart):
 def generateTransID():
     """
     generateTransID():
-        the function returns a unique ID for the transaction based on yymmddhhmmss[ms] == 1807080450443
+        the function returns a unique ID for the transaction based on yymmddhhmmss == 1807080450
     """
-    tid = 1807080451443
-    # logic to do ID currently I'm thinking that either time since epoc or yymmddhhmmss[ms] == 1807080450443
+    tid = time.strftime("%y%m%d%H%M%S")
+    # logic to do ID currently I'm thinking that either time since epoc or yymmddhhmmss
     return tid
 
 
@@ -35,7 +36,7 @@ def generateFileName():
     generateFileName():
         returns the filename for the CSV dayfile
     """
-    fname = "july-8-2018.csv"
+    fname = time.strftime("%B-%d-%y.csv")
     # logic to generate daily file name
     # most important question, mmddyy ddmmyy or yymmdd?
     return fname
