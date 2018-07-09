@@ -5,11 +5,11 @@
 #TODO:
 #    finish admin section
 #    close app if Keypad OR Display closes
-#    Cart.transID should be implemented and printed on reciept. Cart.transID needs to be set in records.py using current time.  
+#    
 #    refractor globals and init_config into Keypad somehow
 #    Admin.help()? Help menu in admin?
 #    New menu for payment method when calling Keypad.finalize() named ProcessPayment()
-#    Finish records.py transID and file_name generators.
+#    
 #    Finish printing functions in printing.py.
 #    add Cart.payment_method to CSV file records
 
