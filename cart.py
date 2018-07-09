@@ -60,6 +60,7 @@ class Cart(object):
         for item in self.cart:
             if item.taxed:
                 taxable += item.price
+        taxable = float(format(taxable, '.2f'))
         return taxable
     def maketotal(self):
         "usage: returns a tuple of the (subtotal, tax, total) of the items in the cart"
