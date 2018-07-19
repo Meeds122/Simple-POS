@@ -1,4 +1,6 @@
-#cart functions
+#Simple-POS/cart.py
+
+#cart objects and tests
 
 class Item(object):
     def __init__(self, name, price, taxed):
@@ -16,7 +18,7 @@ class Item(object):
         if len(price) - (price.find('.') + 1) == 1:
             price = price + '0'
         fmtprice = "$" + price
-        #equalize spaceing
+        #equalize spacing
         fmtprice = fmtprice + ' '*(20 - len(fmtprice))
         #add in name
         fmtprice = fmtprice + self.name + '\n'

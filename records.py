@@ -1,3 +1,4 @@
+#Simple-POS/records.py
 #records retention
 #Tests for these functions are bundled with the cart tests in cart.py
 
@@ -5,6 +6,8 @@ from os import path
 import csv
 import datetime
 import time as time
+
+from random import randint
 
 
 def saveRecord(cart):
@@ -24,10 +27,11 @@ def saveRecord(cart):
 def generateTransID():
     """
     generateTransID():
-        the function returns a unique ID for the transaction based on yymmddhhmmss == 1807080450
+        the function returns a unique ID for the transaction based on yymmddhhmmss[iii] == 1807080450 where iii are 3 random integers
     """
     tid = time.strftime("%y%m%d%H%M%S")
-    # logic to do ID currently I'm thinking that either time since epoc or yymmddhhmmss
+    for i in range(3):
+        tid = tid + str(randint(0,9))
     return tid
 
 
@@ -50,7 +54,7 @@ def createCSV(file_name):
     """
     with open(str(file_name), 'w', newline='') as csvFile:
         writer = csv.writer(csvFile)
-        writer.writerow(["Trans ID", "Non Taxable", "Taxable", "Subtotal", "Tax", "Total"])
+        writer.writerow(["Trans ID", "Payment Method", "Non Taxable", "Taxable", "Subtotal", "Tax", "Total"])
     return
 
 
@@ -59,21 +63,22 @@ def appendCSV(file_name, cart):
     appendCSV(file_name, cart)
     usage:
         append relevent details of a cart to the daily CSVfile
-        CSV format as follows: transactionID | total nontaxable | total taxable | subtotal | tax | total
+        CSV format as follows: transactionID | Payment Type | total nontaxable | total taxable | subtotal | tax | total
 
         needs to be used with the Cart() class from Simple-POS/cart.py
     """
     rows = readCSV(file_name)
     transID = cart.transID
+    payment_method = cart.payment_method
     subtotal, tax, total = cart.maketotal()
     taxable = cart.getTaxable()
     nontaxable = cart.getNontaxable()
-    rows.append([str(transID), str(nontaxable), str(taxable), str(subtotal), str(tax), str(total)])
+    rows.append([str(transID), str(payment_method), str(nontaxable), str(taxable), str(subtotal), str(tax), str(total)])
     #write file and handle file not existing
     with open(str(file_name), 'w', newline='') as CSV_file:
         writer = csv.writer(CSV_file)
         for line in rows:
-            writer.writerow([line[0], line[1], line[2], line[3], line[4], line[5]])
+            writer.writerow([line[0], line[1], line[2], line[3], line[4], line[5], line[6]])
     return True
 
 

@@ -5,7 +5,7 @@
 #TODO:
 #    finish admin section
 #    close app if Keypad OR Display closes
-#    
+#    Need to make Cart.payment_method settable by user
 #    refractor globals and init_config into Keypad somehow
 #    Admin.help()? Help menu in admin?
 #    New menu for payment method when calling Keypad.finalize() named ProcessPayment()
