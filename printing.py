@@ -20,5 +20,4 @@ def printDayFile():
     usage:
         Parse and print the CSV file summary.
     """
-    import records as records
     return
