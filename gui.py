@@ -18,6 +18,20 @@ recieptPrinter = "blah"
 paperPrinter = "blah"
 
 
+"""
+This file defines the structures and relationships of the point and click bits. 
+
+Keypad() called initially
+
+Keypad().__init__() calles Display
+
+Keypad.special() calles Special()
+
+Keypad.admin() calls Admin()
+
+Keypad.finalize() calls Finalize()
+"""
+
 def init_config(configFile):
     global buttons
     global taxRate
