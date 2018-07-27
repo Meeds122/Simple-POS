@@ -54,15 +54,15 @@ class Keypad(tk.Frame):
         self.taxRate = taxRate
         self.cart = Cart(float(self.taxRate))
         #buttons
-        b1 = tk.Button(self, text=str(buttons[0][0][1]), command=self.button1, height = 10, width = 20).grid(row=0, column=0)
-        b2 = tk.Button(self, text=str(buttons[1][0][1]), command=self.button2, height = 10, width = 20).grid(row=0, column=1)
-        b3 = tk.Button(self, text=str(buttons[2][0][1]), command=self.button3, height = 10, width = 20).grid(row=0, column=2)
-        b4 = tk.Button(self, text=str(buttons[3][0][1]), command=self.button4, height = 10, width = 20).grid(row=1, column=0)
-        b5 = tk.Button(self, text=str(buttons[4][0][1]), command=self.button5, height = 10, width = 20).grid(row=1, column=1)
-        b6 = tk.Button(self, text=str(buttons[5][0][1]), command=self.button6, height = 10, width = 20).grid(row=1, column=2)
-        b7 = tk.Button(self, text=str(buttons[6][0][1]), command=self.button7, height = 10, width = 20).grid(row=2, column=0)
-        b8 = tk.Button(self, text=str(buttons[7][0][1]), command=self.button8, height = 10, width = 20).grid(row=2, column=1)
-        b9 = tk.Button(self, text=str(buttons[8][0][1]), command=self.button9, height = 10, width = 20).grid(row=2, column=2)
+        tk.Button(self, text=str(buttons[0][0][1]), command=self.button1, height = 10, width = 20).grid(row=0, column=0)
+        tk.Button(self, text=str(buttons[1][0][1]), command=self.button2, height = 10, width = 20).grid(row=0, column=1)
+        tk.Button(self, text=str(buttons[2][0][1]), command=self.button3, height = 10, width = 20).grid(row=0, column=2)
+        tk.Button(self, text=str(buttons[3][0][1]), command=self.button4, height = 10, width = 20).grid(row=1, column=0)
+        tk.Button(self, text=str(buttons[4][0][1]), command=self.button5, height = 10, width = 20).grid(row=1, column=1)
+        tk.Button(self, text=str(buttons[5][0][1]), command=self.button6, height = 10, width = 20).grid(row=1, column=2)
+        tk.Button(self, text=str(buttons[6][0][1]), command=self.button7, height = 10, width = 20).grid(row=2, column=0)
+        tk.Button(self, text=str(buttons[7][0][1]), command=self.button8, height = 10, width = 20).grid(row=2, column=1)
+        tk.Button(self, text=str(buttons[8][0][1]), command=self.button9, height = 10, width = 20).grid(row=2, column=2)
         #special functions
         bspecial = tk.Button(self, text="Special", command=self.special, height = 10, width = 20).grid(row=3, column=0)
         badmin = tk.Button(self, text="Admin", command=self.admin, height = 10, width = 20).grid(row=3, column=1)
@@ -240,17 +240,24 @@ class Finalize():
 
         self.frame = tk.Frame(self.master)
 
-        tk.Button(self.master, text="Cash", command=self.cashCheckout, height=2, width=10).grid(row=0, column=0)
-        tk.Button(self.master, text="Credit/Debit", command=self.plasticCheckout, height=2, width=10).grid(row=0, column=1)
-        tk.Button(self.master, text="Check", command=self.checkCheckout, height=2, width=10).grid(row=0, column=2)
+        self.button1 = tk.Button(self.master, text="Cash", command=self.cashCheckout, height=2, width=10)
+        self.button1.grid(row=0, column=0)
+        
+        self.button2 = tk.Button(self.master, text="Credit/Debit", command=self.plasticCheckout, height=2, width=10)
+        self.button2.grid(row=0, column=1)
+        
+        self.button3 = tk.Button(self.master, text="Check", command=self.checkCheckout, height=2, width=10)
+        self.button3.grid(row=0, column=2)
     def cashCheckout(self):
         self.cart.payment_method = "cash"
-        self.kill()
+        self.makeChange()
         return
     def plasticCheckout(self):
+        self.cart.payment_method = "card"
         self.kill()
         return
     def checkCheckout(self):
+        self.cart.payment_method = "check"
         self.kill()
         return
     #Clearing up the cart needs to go here because mainloop is non blocking and will execute while checking out if in Keypad.finalize()
@@ -261,6 +268,79 @@ class Finalize():
         self.caller.cart.clear()
         self.caller.update_total()
         self.master.destroy()
+    def makeChange(self):
+        self.in_cash = []
+        self.button1 = tk.Button(self.master, text="1", command=self._one, height=5, width=10)
+        self.button1.grid(row=0, column=0)
+
+        self.button2 = tk.Button(self.master, text="2", command=self._two, height=5, width=10)
+        self.button2.grid(row=0, column=1)
+
+        self.button3 = tk.Button(self.master, text="3", command=self._three, height=5, width=10)
+        self.button3.grid(row=0, column=2)
+
+        self.button4 = tk.Button(self.master, text="4", command=self._four, height=5, width=10)
+        self.button4.grid(row=1, column=0)
+
+        self.button5 = tk.Button(self.master, text="5", command=self._five, height=5, width=10)
+        self.button5.grid(row=1, column=1)
+
+        self.button6 = tk.Button(self.master, text="6", command=self._six, height=5, width=10)
+        self.button6.grid(row=1, column=2)
+
+        self.button7 = tk.Button(self.master, text="7", command=self._seven, height=5, width=10)
+        self.button7.grid(row=2, column=0)
+
+        self.button8 = tk.Button(self.master, text="8", command=self._eight, height=5, width=10)
+        self.button8.grid(row=2, column=1)
+
+        self.button9 = tk.Button(self.master, text="9", command=self._nine, height=5, width=10)
+        self.button9.grid(row=2, column=2)
+
+        self.button0 = tk.Button(self.master, text="0", command=self._zero, height=5, width=10)
+        self.button0.grid(row=3, column=1)
+
+        self.make_change_button = tk.Button(self.master, text="Make Change", command=self._submitInCash, height=5, width=10)
+        self.make_change_button.grid(row=3, column=2)
+
+    # these functions are destined to be used internally by self.makeChange()
+    def _one(self):
+        self.in_cash.append("1")
+        self._update_disp()
+    def _two(self):
+        self.in_cash.append("2")
+        self._update_disp()
+    def _three(self):
+        self.in_cash.append("3")
+        self._update_disp()
+    def _four(self):
+        self.in_cash.append("4")
+        self._update_disp()
+    def _five(self):
+        self.in_cash.append("5")
+        self._update_disp()
+    def _six(self):
+        self.in_cash.append("6")
+        self._update_disp()
+    def _seven(self):
+        self.in_cash.append("7")
+        self._update_disp()
+    def _eight(self):
+        self.in_cash.append("8")
+        self._update_disp()
+    def _nine(self):
+        self.in_cash.append("9")
+        self._update_disp()
+    def _zero(self):
+        self.in_cash.append("0")
+        self._update_disp()
+    def _update_disp(self):
+        print(self.in_cash)
+        return
+    def _submitInCash(self):
+        self.kill()
+
+
 
 
 
