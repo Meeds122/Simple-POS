@@ -8,8 +8,8 @@
 #    Need to make Cart.payment_method settable by user
 #    refractor globals and init_config into Keypad somehow
 #    Admin.help()? Help menu in admin?
-#    New menu for payment method when calling Keypad.finalize() named ProcessPayment()
-#    
+#    Finish menu for payment method when calling Keypad.finalize() named ProcessPayment()
+#    Keypad.finalize() Should call a new GUI class called Finalize
 #    Finish printing functions in printing.py.
 #    add Cart.payment_method to CSV file records
 
