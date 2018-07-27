@@ -134,12 +134,8 @@ class Keypad(tk.Frame):
             #if cart is empty, ignore request to finalize
             return
         # Need to make payment_method settable by user
-        self.cart.payment_method = "cash"
-        self.cart.transID = records.saveRecord(self.cart)
-        printing.printReceipt(self.cart)
-        self.app.clear()
-        self.cart.clear()
-        self.update_total()
+        self.finalize_window = tk.Toplevel(self.master)
+        self.finalize = Finalize(self.finalize_window, self, self.cart)
         return
     def check_special_input(self):
         if(self.sinputItem):
@@ -234,6 +230,36 @@ class Admin():
         self.caller.master.destroy()
         return
     def kill(self):
+        self.master.destroy()
+
+class Finalize():
+    def __init__(self, master, caller, cart):
+        self.caller = caller
+        self.master = master
+        self.cart = cart
+
+        self.frame = tk.Frame(self.master)
+
+        tk.Button(self.master, text="Cash", command=self.cashCheckout, height=2, width=10).grid(row=0, column=0)
+        tk.Button(self.master, text="Credit/Debit", command=self.plasticCheckout, height=2, width=10).grid(row=0, column=1)
+        tk.Button(self.master, text="Check", command=self.checkCheckout, height=2, width=10).grid(row=0, column=2)
+    def cashCheckout(self):
+        self.cart.payment_method = "cash"
+        self.kill()
+        return
+    def plasticCheckout(self):
+        self.kill()
+        return
+    def checkCheckout(self):
+        self.kill()
+        return
+    #Clearing up the cart needs to go here because mainloop is non blocking and will execute while checking out if in Keypad.finalize()
+    def kill(self):
+        self.cart.transID = records.saveRecord(self.cart)
+        printing.printReceipt(self.cart)
+        self.caller.app.clear()
+        self.caller.cart.clear()
+        self.caller.update_total()
         self.master.destroy()
 
 
