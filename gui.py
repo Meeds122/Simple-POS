@@ -284,37 +284,31 @@ class Finalize():
         self.master.destroy()
     def makeChange(self):
         self.in_cash = []
+        self.button1.destroy()
+        self.button2.destroy()
+        self.button3.destroy()
         self.button1 = tk.Button(self.master, text="1", command=self._one, height=5, width=10)
         self.button1.grid(row=0, column=0)
-
         self.button2 = tk.Button(self.master, text="2", command=self._two, height=5, width=10)
         self.button2.grid(row=0, column=1)
-
         self.button3 = tk.Button(self.master, text="3", command=self._three, height=5, width=10)
         self.button3.grid(row=0, column=2)
-
         self.button4 = tk.Button(self.master, text="4", command=self._four, height=5, width=10)
         self.button4.grid(row=1, column=0)
-
         self.button5 = tk.Button(self.master, text="5", command=self._five, height=5, width=10)
         self.button5.grid(row=1, column=1)
-
         self.button6 = tk.Button(self.master, text="6", command=self._six, height=5, width=10)
         self.button6.grid(row=1, column=2)
-
         self.button7 = tk.Button(self.master, text="7", command=self._seven, height=5, width=10)
         self.button7.grid(row=2, column=0)
-
         self.button8 = tk.Button(self.master, text="8", command=self._eight, height=5, width=10)
         self.button8.grid(row=2, column=1)
-
         self.button9 = tk.Button(self.master, text="9", command=self._nine, height=5, width=10)
         self.button9.grid(row=2, column=2)
-
         self.button0 = tk.Button(self.master, text="0", command=self._zero, height=5, width=10)
         self.button0.grid(row=3, column=1)
 
-        self.make_change_button = tk.Button(self.master, text="Make Change", command=self._submitInCash, height=5, width=10)
+        self.make_change_button = tk.Button(self.master, text="Make Change", command=self._displayChange, height=5, width=10)
         self.make_change_button.grid(row=3, column=2)
 
     # these functions are destined to be used internally by self.makeChange()
@@ -351,6 +345,22 @@ class Finalize():
     def _update_disp(self):
         print(self.in_cash)
         return
+    def _destroyButtons(self):
+        self.button1.destroy()
+        self.button2.destroy()
+        self.button3.destroy()
+        self.button4.destroy()
+        self.button5.destroy()
+        self.button6.destroy()
+        self.button7.destroy()
+        self.button8.destroy()
+        self.button9.destroy()
+        self.button0.destroy()
+        self.make_change_button.destroy()
+        return
+    def _displayChange(self):
+        self._destroyButtons()
+        
     def _submitInCash(self):
         self.kill()
 
