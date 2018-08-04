@@ -168,7 +168,7 @@ class Display():
         self.master = master
         self.frame = tk.Frame(self.master)
         self.frame.pack(side=tk.RIGHT)
-        self.disp = tk.Text(self.frame, state='disabled', width=60, height=40)
+        self.disp = tk.Text(self.frame, state='disabled', width=60, height=39)
         self.disp.pack()
         self.dispTotal = tk.Text(self.frame, state='disabled', width=60, height=1)
         self.dispTotal.pack()

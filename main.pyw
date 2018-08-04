@@ -18,7 +18,7 @@
 
 
 #gui
-from gui import *
+from gui import Keypad, tk
 
 #start GUI main loop
 def main():
