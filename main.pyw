@@ -12,6 +12,8 @@
 #    Keypad.finalize() Should call a new GUI class called Finalize
 #    Finish printing functions in printing.py.
 #    add Cart.payment_method to CSV file records
+#    printing.py needs a parser and format file for reciept formatting
+#
 
 #NOTES:
 #    CSV file is for daily records retention. Actual cart objects to be stored elsewhere prolly xml

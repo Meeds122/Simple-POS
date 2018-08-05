@@ -4,7 +4,7 @@
 import tkinter as tk # python 3 import
 import configparser as cp
 #import cart functions
-from cart import *
+from cart import Cart, Item
 #import records functions
 import records as records
 #import printing functions

@@ -5,6 +5,10 @@
 import records as records # generate dayfile name...
 from cart import Cart, Item
 
+import platform # detect platform for printing
+import os # windows printing
+import subprocess # linux printing
+
 def printReceipt(cart):
     """
     printReceipt(cart)
@@ -62,11 +66,40 @@ def printDayFile(day_file_name=None):
             day_tax['check'] += float(line[5])
             day_total['check'] += float(line[6])
     
+    #debug
     print("nontaxed: ", day_nontaxed)
     print("taxed: ", day_taxed)
     print("subtotal: ", day_subtotal)
     print("tax", day_tax)
     print("total", day_total)
+    print("transactions: ", number_of_transactions)
     
+    #write to temporary file
+    with open("tmp.txt", 'w') as temp_file:
+        temp_file.write("Day Report for " + day_file_name)
+        temp_file.write("\n\nSummary:")
+        summary = "\n\nNumber of Transactions: " + str(number_of_transactions)
+        summary += "\n\nNon-taxable Income: " + str(day_nontaxed['cash'] + day_nontaxed['card'] + day_nontaxed['check'])
+        summary +="\n\nTaxable Income: " + str(day_taxed['cash'] + day_taxed['card'] + day_taxed['check'])
+        summary += "\n\nTotal Without Tax: " + str(day_subtotal['cash'] + day_subtotal['card'] + day_subtotal['check'])
+        summary += "\n\nTax Collected: " + str(day_tax['cash'] + day_tax['card'] + day_tax['check'])
+        summary += "\n\nDay Total:\n" + "Cash: " + str(day_total['cash']) + " Card: " + str(day_total["card"]) + " Check: " + str(day_total['check'])
+        summary += "\nTogether: " + str(day_total['cash'] + day_total['card'] + day_total['check'])
+        summary += "\n\n\n\nCopy of CSV file. This is the central register that keeps track of transactions. Normally you would open this file with"
+        summary += " with some spreadsheet software such as Excell or LibreOffice. This is for your records.\n\n"
+        temp_file.write(summary)
+        for line in csv_lines:
+            temp_file.write(str(line) + "\n")
+    
+    #detect OS and call printer
+    current_platform = platform.system()
+    if current_platform == "Windows":
+        os.startfile("tmp.txt", "print")
+        return
+    elif current_platform == "Linux":
+        #untested. Will need to read in created temp file
+        #lpr =  subprocess.Popen("/usr/bin/lpr", stdin=subprocess.PIPE)
+        #lpr.stdin.write(your_data_here)
+        return
     
     return
