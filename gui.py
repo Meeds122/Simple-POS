@@ -78,9 +78,9 @@ class Keypad(tk.Frame):
         tk.Button(self, text=str(buttons[7][0][1]), command=self.button8, height = 10, width = 20).grid(row=2, column=1)
         tk.Button(self, text=str(buttons[8][0][1]), command=self.button9, height = 10, width = 20).grid(row=2, column=2)
         #special functions
-        bspecial = tk.Button(self, text="Special", command=self.special, height = 10, width = 20).grid(row=3, column=0)
-        badmin = tk.Button(self, text="Admin", command=self.admin, height = 10, width = 20).grid(row=3, column=1)
-        bfinalize = tk.Button(self, text="Finalize", command=self.finalize, height = 10, width = 20).grid(row=3, column=2)
+        tk.Button(self, text="Special", command=self.special, height = 10, width = 20).grid(row=3, column=0)
+        tk.Button(self, text="Admin", command=self.admin, height = 10, width = 20).grid(row=3, column=1)
+        tk.Button(self, text="Finalize", command=self.finalize, height = 10, width = 20).grid(row=3, column=2)
     def button1(self):
         item = Item(self.button[0][0][1], self.button[0][1][1], self.button[0][2][1])
         self.app.update(item.print())
@@ -251,6 +251,7 @@ class Finalize():
         self.caller = caller
         self.master = master
         self.cart = cart
+        
 
         self.frame = tk.Frame(self.master)
 
@@ -310,6 +311,9 @@ class Finalize():
 
         self.make_change_button = tk.Button(self.master, text="Make Change", command=self._displayChange, height=5, width=10)
         self.make_change_button.grid(row=3, column=2)
+        
+        self.display_change = tk.Text(self.master, state='disabled', width=10, height=1)
+        self.display_change.grid(row=4, column=1)
 
     # these functions are destined to be used internally by self.makeChange()
     def _one(self):
@@ -343,8 +347,24 @@ class Finalize():
         self.in_cash.append("0")
         self._update_disp()
     def _update_disp(self):
-        print(self.in_cash)
-        return
+        if len(self.in_cash) > 2:
+            #more than 1$
+            self.string_in_cash = ""
+            self.string_in_cash += "".join(self.in_cash[:-2]) # grap pre decimal amount
+            self.string_in_cash += "." + "".join(self.in_cash[-2:]) # grab decimal amount
+        elif (len(self.in_cash) <= 2) and (len(self.in_cash) != 0):
+            #less than 1$
+            if len(self.in_cash) == 1:
+                self.string_in_cash = ".0" + self.in_cash[0]
+            else:
+                self.string_in_cash = "." + "".join(self.in_cash)
+        else: 
+            # len(self.in_cash == 0)
+            self.string_in_cash = ".00"
+        self.display_change.configure(state='normal')
+        self.display_change.delete('1.0', tk.END)
+        self.display_change.insert('end', "$" + self.string_in_cash)
+        self.display_change.configure(state='disabled')
     def _destroyButtons(self):
         self.button1.destroy()
         self.button2.destroy()
@@ -359,10 +379,32 @@ class Finalize():
         self.make_change_button.destroy()
         return
     def _displayChange(self):
-        self._destroyButtons()
+        #if not enough money in self.string_in_cash return from function
+        if float(self.string_in_cash) < float(self.cart.maketotal()[2]):
+            return
         
-    def _submitInCash(self):
-        self.kill()
+        self._destroyButtons()
+        #figure out change from self.in_cash
+        #self.in_cash is a list of char in numbers
+        change = float(self.string_in_cash) - float(self.cart.maketotal()[2])
+        
+        string_change = "Change: $" + format(change, '.2f') # format returns string so no conversion needed
+        
+        #set text box to show change
+        self.display_change.destroy()
+        self.display_change = tk.Text(self.master, state='disabled', width=30, height=1)
+        self.display_change.grid(row=0, column=0)
+        
+        self.exit_button = tk.Button(self.master, text="Return", command=self.kill, height=2, width=10)
+        self.exit_button.grid(row=0, column=1)
+        
+        self.display_change.configure(state='normal')
+        self.display_change.delete('1.0', tk.END)
+        self.display_change.insert('end', string_change)
+        self.display_change.configure(state='disabled')
+        # need a destroy button when cashier is done
+        
+        
 
 
 

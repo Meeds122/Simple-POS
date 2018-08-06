@@ -13,11 +13,11 @@
 #    Finish printing functions in printing.py.
 #    add Cart.payment_method to CSV file records
 #    printing.py needs a parser and format file for reciept formatting
-#
+#    printing.py  -> printDayFile() needs to be able to print on linux and OSX boxes. Currently Windows Only!
 
 #NOTES:
 #    CSV file is for daily records retention. Actual cart objects to be stored elsewhere prolly xml
-
+#    python-escpos is more than capable of running both the ESC/POS printer and the register through the printer.
 
 #gui
 from gui import Keypad, tk
