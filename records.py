@@ -40,7 +40,7 @@ def generateFileName():
     generateFileName():
         returns the filename for the CSV dayfile
     """
-    fname = time.strftime("%B-%d-%y.csv")
+    fname = time.strftime("dayfiles/%B-%d-%y.csv")
     # logic to generate daily file name
     # most important question, mmddyy ddmmyy or yymmdd?
     return fname

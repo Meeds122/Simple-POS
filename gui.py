@@ -14,8 +14,6 @@ configFile = "config.ini" # Config file location
 
 buttons = [] # structure [[('name', 'item 1'), ('price', '1.0'), ('istaxed', 'true')],...]
 taxRate = 0.0
-recieptPrinter = "blah"
-paperPrinter = "blah"
 
 
 """
@@ -35,8 +33,6 @@ Keypad.finalize() calls Finalize()
 def init_config(configFile):
     global buttons
     global taxRate
-    global recieptPrinter
-    global paperPrinter
     parser = cp.ConfigParser()
     parser.read(configFile)
     #fill buttons list

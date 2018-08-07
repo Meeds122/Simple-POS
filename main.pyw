@@ -34,6 +34,10 @@ def main():
         #should be able to insert keypad.check_special_input() here
         #root.update* are nonblocking unlike tk.mainloop()
         keypad.check_special_input()
+        #trying to close if either keypad or display close
+        if not keypad.app:
+            print("not keypad.app")
+            return
 
 if __name__ == '__main__':
     main()
