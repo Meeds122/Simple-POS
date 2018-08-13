@@ -1,4 +1,4 @@
-#Simple-POS
+# Simple-POS
 
 This is a simple point of sale system (POS) for basic retail operatons.
 
