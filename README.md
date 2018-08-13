@@ -1,4 +1,5 @@
 This is a simple point of sale system (POS) for basic retail operatons.
+
 **BETA STAGE - Not ready for production systems**
 
 The high points:
