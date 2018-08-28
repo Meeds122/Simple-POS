@@ -22,14 +22,29 @@ def saveRecord(cart):
     pickleRecord(cart)
     return cart.transID
 
+
+
 def pickleRecord(cart):
+    """
+    pickleRecord(cart):
+        pickles the record into current monthfile
+        This function save the actual cart object for future refrence
+        provides much more detail than CSV insertions
+    """
     file_name = time.strftime("lts/%B-%Y.bin")
     carts = readPickledRecords(file_name)
     carts.append(cart)
     writePickledRecords(file_name, carts)
     return
 
+
+
 def readPickledRecords(file_name):
+    """
+    readPickledRecords(file_name):
+        returns a list of pickled objects in file_name
+        pass if file_name does not exist
+    """
     objects = list()
     try:
         with open(file_name, "rb") as f:
@@ -42,11 +57,19 @@ def readPickledRecords(file_name):
         pass
     return objects
 
+
+
 def writePickledRecords(file_name, objects_list):
+    """
+    writePickledRecords(file_name, objects_list):
+        pickles the items in objects_list into the file_name file
+        overwrites current file
+    """
     with open(file_name, "wb") as f:
         for item in objects_list:
             pickle.dump(item, f, pickle.HIGHEST_PROTOCOL)
     return
+
 
 
 def generateTransID():
@@ -60,6 +83,7 @@ def generateTransID():
     return tid
 
 
+
 def generateFileName():
     """
     generateFileName():
@@ -69,6 +93,7 @@ def generateFileName():
     # logic to generate daily file name
     # most important question, mmddyy ddmmyy or yymmdd?
     return fname
+
 
 
 def createCSV(file_name):
@@ -81,6 +106,7 @@ def createCSV(file_name):
         writer = csv.writer(csvFile)
         writer.writerow(["Trans ID", "Payment Method", "Non Taxable", "Taxable", "Subtotal", "Tax", "Total"])
     return
+
 
 
 def appendCSV(file_name, cart):
@@ -105,6 +131,7 @@ def appendCSV(file_name, cart):
         for line in rows:
             writer.writerow([line[0], line[1], line[2], line[3], line[4], line[5], line[6]])
     return True
+
 
 
 def readCSV(fileName):
