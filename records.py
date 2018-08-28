@@ -4,6 +4,8 @@
 import csv
 import time as time
 
+import pickle
+
 from random import randint
 
 
@@ -17,11 +19,35 @@ def saveRecord(cart):
     """
     cart.transID = generateTransID()
     appendCSV(generateFileName(), cart)
+    pickleRecord(cart)
     return cart.transID
 
 def pickleRecord(cart):
-    fname = time.strftime("lts/%B-%Y.bin")
-    print(fname)
+    file_name = time.strftime("lts/%B-%Y.bin")
+    carts = readPickledRecords(file_name)
+    carts.append(cart)
+    writePickledRecords(file_name, carts)
+    return
+
+def readPickledRecords(file_name):
+    objects = list()
+    try:
+        with open(file_name, "rb") as f:
+            while True:
+                try:
+                    objects.append(pickle.load(f))
+                except EOFError:
+                    break
+    except FileNotFoundError:
+        pass
+    return objects
+
+def writePickledRecords(file_name, objects_list):
+    with open(file_name, "wb") as f:
+        for item in objects_list:
+            pickle.dump(item, f, pickle.HIGHEST_PROTOCOL)
+    return
+
 
 def generateTransID():
     """
