@@ -1,10 +1,7 @@
 #Simple-POS/records.py
 #records retention
 #Tests for these functions are bundled with the cart tests in cart.py
-
-from os import path
 import csv
-import datetime
 import time as time
 
 from random import randint
@@ -22,7 +19,9 @@ def saveRecord(cart):
     appendCSV(generateFileName(), cart)
     return cart.transID
 
-
+def pickleRecord(cart):
+    fname = time.strftime("lts/%B-%Y.bin")
+    print(fname)
 
 def generateTransID():
     """
